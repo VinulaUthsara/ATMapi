@@ -138,63 +138,7 @@ paths:
           
           
          
- /deposit/{pin}/{accountNumber}/{depositAmount}:
-  post:
-      operationId: POST_deposit
-      tags:
-        - CreateAccount
-        
-      summary: creates bank account for user
-      description: creates a bank account 
-      parameters:
-        - in: path
-          name: pin
-          required: true
-          type: integer
-          minimum: 1
-          description: The pin of customers account
-        - in: path
-          name: accountNumber
-          required: true
-          type: integer
-          minimum: 1
-          description: The account number of customers account
-        - in: path
-          name: depositAmount
-          required: true
-          type: integer
-          minimum: 1
-          description: The deposit amount
-      responses:
-        200:
-         description: OK
-         schema:
-            # $ref: '#/definitions/DepositAccountDetails'
-            type: object
-            properties:
-              account_number:
-                type: number
-                example: 112233445566
-              account_pin:
-                type: number
-                example: 1234
-              account_holder:
-                type: string
-                example: VinulaUthsara
-              account_balance:
-                type: number
-                example: 100000
-              phone_number:
-                type: string
-                example: 0769006126
-        400:
-          description: The specified pin is invalid (e.g. not a number).
-        404:
-          description: An account with the specified pin was not found.
-        default:
-          description: Unexpected error    
-          
-    
+
 
 
 
@@ -251,24 +195,7 @@ definitions:
       phone_number:
         type: string
         
-  DepositAccountDetails:
-    type: object
-    properties:
-      account_number:
-        type: integer
-        format: int64
-      account_pin:  
-        type: integer
-        format: int64
-      account_holder:
-        type: string
-      account_balance:
-        type: integer
-        format: int64
-      deposit_amount:
-        type: string
-      phone_number:
-        type: string
+ 
 
 
 
