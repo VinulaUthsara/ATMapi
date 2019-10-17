@@ -1,0 +1,162 @@
+swagger: '2.0'
+info:
+  version: 'v1.0'
+  title: 'ATMapi'
+  description: 'provides bank atm  api functions'
+paths: 
+
+ /createaccount:
+  post:
+      operationId: POST_createaccount-pin
+      tags:
+        - CreateAccount
+        
+      summary: creates bank account for user
+      description: creates a bank account 
+      parameters:
+        - in: body
+          name: body
+          description: Created account object
+          required: true
+          schema:
+            $ref: '#/definitions/CreateAccountDetails'
+      responses:
+       200:
+         description: OK
+         
+  
+
+
+ /accountinfo/{pin}/{accountNumber}:
+  get:
+      operationId: GET_accountinfo-pin
+      summary: Returns customer account information
+      tags:
+        - Accountinfo
+      parameters:
+        - in: path
+          name: pin
+          required: true
+          type: integer
+          minimum: 1
+          description: The pin of customers account
+        - in: path
+          name: accountNumber
+          required: true
+          type: integer
+          minimum: 1
+          description: The pin of customers account
+          
+      responses:
+        200:
+          description: A customer account object.
+          schema:
+            # $ref: '#/definitions/CreateAccountDetails'
+            type: object
+            properties:
+              
+              account_number:
+                type: number
+                example: 1234
+              account_pin:
+                type: number
+                example: 123  
+              account_holder:
+                type: string
+                example: Vinula
+              account_balance:
+                type: number
+                example: 2000
+              phone_number:
+                type: string
+                example: 076866578 
+            
+        400:
+          description: The specified pin is invalid (e.g. not a number).
+        404:
+          description: An account with the specified pin was not found.
+        default:
+          description: Unexpected error        
+
+
+
+
+
+definitions:
+  CreateAccountDetails:
+    type: object
+    properties:
+      account_number:
+        type: integer
+        format: int64
+      account_pin:  
+        type: integer
+        format: int64
+      account_holder:
+        type: string
+      account_balance:
+        type: integer
+        format: int64
+      phone_number:
+        type: string
+  
+  GetAccountDetails:
+    type: object
+    properties:
+      account_number:
+        type: integer
+        format: int64
+      account_pin:  
+        type: integer
+        format: int64
+      account_holder:
+        type: string
+      account_balance:
+        type: string
+      phone_number:
+        type: string
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /W7354/ATMapi/v1.0
+schemes:
+ - https
