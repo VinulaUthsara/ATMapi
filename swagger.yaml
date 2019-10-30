@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 'v1.0'
+  version: 'v2.0'
   title: 'ATMapi'
   description: 'provides bank atm  api functions'
 paths: 
@@ -11,8 +11,8 @@ paths:
       tags:
         - CreateAccount
         
-      summary: creates bank account for user
-      description: creates a bank account 
+      summary: Creates bank account for user
+      description: Creates a bank account 
       parameters:
         - in: body
           name: body
@@ -27,34 +27,34 @@ paths:
   
 
 
- /accountinfo/{pin}/{accountNumber}:
+ /accountinfo/{accountNumber}/{pin}:
   get:
       operationId: GET_accountinfo-pin
       summary: Returns customer account information
       tags:
-        - Accountinfo
+        - Account Info
       parameters:
-        - in: path
-          name: pin
-          required: true
-          type: integer
-          minimum: 1
-          description: The pin of customers account
+        
         - in: path
           name: accountNumber
           required: true
           type: integer
           minimum: 1
-          description: The pin of customers account
+          description:  account number of customers account
+        - in: path
+          name: pin
+          required: true
+          type: integer
+          minimum: 1
+          description:  pin of customers account
           
       responses:
         200:
           description: A customer account object.
           schema:
-            # $ref: '#/definitions/CreateAccountDetails'
+              # $ref: '#/definitions/CreateAccountDetails'
             type: object
             properties:
-              
               account_number:
                 type: number
                 example: 1234
@@ -79,38 +79,38 @@ paths:
           description: Unexpected error        
 
           
- /withdrawal/{pin}/{accountNumber}/{withdrawalAmount}:
+ /withdrawal/{accountNumber}/{pin}/{withdrawalAmount}:
   post:
       operationId: POST_withdrawal
       tags:
-        - CreateAccount
+        - Withdrawal
         
-      summary: creates bank account for user
+      summary:  Withdraws money from account
       description: creates a bank account 
       parameters:
-        - in: path
-          name: pin
-          required: true
-          type: integer
-          minimum: 1
-          description: The pin of customers account
+       
         - in: path
           name: accountNumber
           required: true
           type: integer
           minimum: 1
-          description: The account number of customers account
+          description:  account number of customers account
+        - in: path
+          name: pin
+          required: true
+          type: integer
+          minimum: 1
+          description:  pin of customers account
         - in: path
           name: withdrawalAmount
           required: true
           type: integer
           minimum: 1
-          description: The withdrawal amount
+          description:  withdrawal amount
       responses:
         200:
          description: OK
          schema:
-            # $ref: '#/definitions/WithdrawAccountDetails'
             type: object
             properties:
               account_number:
@@ -138,7 +138,152 @@ paths:
           
           
          
-
+ /deposit/{accountNumber}/{pin}/{depositAmount}:
+  post:
+      operationId: POST_deposit
+      tags:
+        - Deposit
+        
+      summary: Deposits money to account
+      description: creates a bank account 
+      parameters:
+        
+        - in: path
+          name: accountNumber
+          required: true
+          type: integer
+          minimum: 1
+          description:  account number of customers account
+        - in: path
+          name: pin
+          required: true
+          type: integer
+          minimum: 1
+          description:  pin of customers account
+        - in: path
+          name: depositAmount
+          required: true
+          type: integer
+          minimum: 1
+          description:  deposit amount
+      responses:
+        200:
+         description: OK
+         schema:
+            type: object
+            properties:
+              account_number:
+                type: number
+                example: 112233445566
+              account_pin:
+                type: number
+                example: 1234
+              account_holder:
+                type: string
+                example: VinulaUthsara
+              account_balance:
+                type: number
+                example: 100000
+              phone_number:
+                type: string
+                example: 0769006126
+        400:
+          description: The specified pin is invalid (e.g. not a number).
+        404:
+          description: An account with the specified pin was not found.
+        default:
+          description: Unexpected error   
+          
+ /transfer/{accountNumber}/{pin}/{transferAccountNumber}/{transferAmount}:
+  post:
+      operationId: POST_transfer
+      tags:
+        - Transfer
+        
+      summary: Transfers money to another account
+      description: Transfers money to another account
+      parameters:
+      
+        - in: path
+          name: accountNumber
+          required: true
+          type: integer
+          minimum: 1
+          description:  account number of customers account
+        - in: path
+          name: pin
+          required: true
+          type: integer
+          minimum: 1
+          description:  pin of customers account
+        - in: path
+          name: transferAccountNumber
+          required: true
+          type: integer
+          minimum: 1
+          description:  account number of transfer account
+        - in: path
+          name: transferAmount
+          required: true
+          type: integer
+          minimum: 1
+          description:  transfer amount
+      responses:
+        200:
+         description: OK
+         schema:
+            type: object
+            properties:
+              account_number:
+                type: number
+                example: 112233445566
+              account_pin:
+                type: number
+                example: 1234
+              transfer_account_number:
+                type: number
+                example: 6677889900
+              transfer_amount:
+                type: number
+                example: 5,000
+            
+        400:
+          description: The specified pin is invalid (e.g. not a number).
+        404:
+          description: An account with the specified pin was not found.
+        default:
+          description: Unexpected error   
+          
+ /delete/{accountNumber}/{pin}/{adminCode}:
+  delete:
+    operationId: DELETE_deleteAccount
+    tags:
+        - DeleteAccount
+    summary: Deletes a specified account 
+    description: Deletes a specified account under admin permissions
+    parameters:
+        - in: path
+          name: accountNumber
+          required: true
+          type: integer
+          minimum: 1
+          description:  account number of customers account
+        - in: path
+          name: pin
+          required: true
+          type: integer
+          minimum: 1
+          description:  pin of customers account
+        - in: path
+          name: adminCode
+          required: true
+          type: integer
+          minimum: 1
+          description:  admin permission code 
+    responses:
+      200:
+        description: OK (Account Deleted)
+  
 
 
 
@@ -160,78 +305,10 @@ definitions:
       phone_number:
         type: string
   
-  GetAccountDetails:
-    type: object
-    properties:
-      account_number:
-        type: integer
-        format: int64
-      account_pin:  
-        type: integer
-        format: int64
-      account_holder:
-        type: string
-      account_balance:
-        type: string
-      phone_number:
-        type: string
-        
-  WithdrawAccountDetails:
-    type: object
-    properties:
-      account_number:
-        type: integer
-        format: int64
-      account_pin:  
-        type: integer
-        format: int64
-      account_holder:
-        type: string
-      account_balance:
-        type: integer
-        format: int64
-      withdrawal_amount:
-        type: string
-      phone_number:
-        type: string
-        
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
-basePath: /W7354/ATMapi/v1.0
+basePath: /W7354/ATMapi/v2.0
 schemes:
  - https
