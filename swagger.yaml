@@ -51,32 +51,32 @@ paths:
       responses:
         200:
           description: A customer account object.
-        #   schema:
-        #       # $ref: '#/definitions/CreateAccountDetails'
-        #     type: object
-        #     properties:
-        #       account_number:
-        #         type: number
-        #         example: 1234
-        #       account_pin:
-        #         type: number
-        #         example: 123  
-        #       account_holder:
-        #         type: string
-        #         example: Vinula
-        #       account_balance:
-        #         type: number
-        #         example: 2000
-        #       phone_number:
-        #         type: string
-        #         example: 076866578 
+          schema:
+              # $ref: '#/definitions/CreateAccountDetails'
+            type: object
+            properties:
+              account_number:
+                type: number
+                example: 1234
+              account_pin:
+                type: number
+                example: 123  
+              account_holder:
+                type: string
+                example: Vinula
+              account_balance:
+                type: number
+                example: 2000
+              phone_number:
+                type: string
+                example: 076866578 
             
-        # 400:
-        #   description: The specified pin is invalid (e.g. not a number).
-        # 404:
-        #   description: An account with the specified pin was not found.
-        # default:
-        #   description: Unexpected error        
+        400:
+          description: The specified pin is invalid (e.g. not a number).
+        404:
+          description: An account with the specified pin was not found.
+        default:
+          description: Unexpected error        
 
           
  /withdrawal/{accountNumber}/{pin}/{withdrawalAmount}:
@@ -110,30 +110,30 @@ paths:
       responses:
         200:
          description: OK
-        # schema:
-        #     type: object
-        #     properties:
-        #       account_number:
-        #         type: number
-        #         example: 112233445566
-        #       account_pin:
-        #         type: number
-        #         example: 1234
-        #       account_holder:
-        #         type: string
-        #         example: VinulaUthsara
-        #       account_balance:
-        #         type: number
-        #         example: 100000
-        #       phone_number:
-        #         type: string
-        #         example: 0769006126
-        # 400:
-        #   description: The specified pin is invalid (e.g. not a number).
-        # 404:
-        #   description: An account with the specified pin was not found.
-        # default:
-        #   description: Unexpected error    
+         schema:
+            type: object
+            properties:
+              account_number:
+                type: number
+                example: 112233445566
+              account_pin:
+                type: number
+                example: 1234
+              account_holder:
+                type: string
+                example: VinulaUthsara
+              account_balance:
+                type: number
+                example: 100000
+              phone_number:
+                type: string
+                example: 0769006126
+        400:
+          description: The specified pin is invalid (e.g. not a number).
+        404:
+          description: An account with the specified pin was not found.
+        default:
+          description: Unexpected error    
           
           
           
@@ -169,30 +169,30 @@ paths:
       responses:
         200:
          description: OK
-        # schema:
-        #     type: object
-        #     properties:
-        #       account_number:
-        #         type: number
-        #         example: 112233445566
-        #       account_pin:
-        #         type: number
-        #         example: 1234
-        #       account_holder:
-        #         type: string
-        #         example: VinulaUthsara
-        #       account_balance:
-        #         type: number
-        #         example: 100000
-        #       phone_number:
-        #         type: string
-        #         example: 0769006126
-        # 400:
-        #   description: The specified pin is invalid (e.g. not a number).
-        # 404:
-        #   description: An account with the specified pin was not found.
-        # default:
-        #   description: Unexpected error   
+         schema:
+            type: object
+            properties:
+              account_number:
+                type: number
+                example: 112233445566
+              account_pin:
+                type: number
+                example: 1234
+              account_holder:
+                type: string
+                example: VinulaUthsara
+              account_balance:
+                type: number
+                example: 100000
+              phone_number:
+                type: string
+                example: 0769006126
+        400:
+          description: The specified pin is invalid (e.g. not a number).
+        404:
+          description: An account with the specified pin was not found.
+        default:
+          description: Unexpected error   
           
  /transfer/{accountNumber}/{pin}/{transferAccountNumber}/{transferAmount}:
   post:
@@ -231,28 +231,28 @@ paths:
       responses:
         200:
          description: OK
-        # schema:
-        #     type: object
-        #     properties:
-        #       account_number:
-        #         type: number
-        #         example: 112233445566
-        #       account_pin:
-        #         type: number
-        #         example: 1234
-        #       transfer_account_number:
-        #         type: number
-        #         example: 6677889900
-        #       transfer_amount:
-        #         type: number
-        #         example: 5,000
+         schema:
+            type: object
+            properties:
+              account_number:
+                type: number
+                example: 112233445566
+              account_pin:
+                type: number
+                example: 1234
+              transfer_account_number:
+                type: number
+                example: 6677889900
+              transfer_amount:
+                type: number
+                example: 5,000
             
-        # 400:
-        #   description: The specified pin is invalid (e.g. not a number).
-        # 404:
-        #   description: An account with the specified pin was not found.
-        # default:
-        #   description: Unexpected error   
+        400:
+          description: The specified pin is invalid (e.g. not a number).
+        404:
+          description: An account with the specified pin was not found.
+        default:
+          description: Unexpected error   
           
  /delete/{accountNumber}/{pin}/{adminCode}:
   delete:
